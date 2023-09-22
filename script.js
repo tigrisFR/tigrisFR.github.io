@@ -4,6 +4,24 @@ function getBackendUrl() {
     return document.getElementById('backendUrl').value;
 }
 
+function submitBackendUrl() {
+    fetch(getBackendUrl() + '/')
+        .then(response => response.text())
+        .then(data => {
+            // Display the backend message
+            document.getElementById('backendMessage').textContent = data;
+
+            // Hide the backend URL input
+            document.getElementById('backendInputDiv').style.display = 'none';
+
+            // Show the signup/login UI
+            document.getElementById('authUI').style.display = 'block';
+        })
+        .catch(error => {
+            alert('Error fetching backend message:', error);
+        });
+}
+
 function signup() {
     const username = document.getElementById('signupUsername').value;
     const password = document.getElementById('signupPassword').value;
