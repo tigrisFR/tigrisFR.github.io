@@ -1,10 +1,14 @@
 let accessToken = null;
 
+function getBackendUrl() {
+    return document.getElementById('backendUrl').value;
+}
+
 function signup() {
     const username = document.getElementById('signupUsername').value;
     const password = document.getElementById('signupPassword').value;
 
-    fetch('YOUR_BACKEND_URL/signup', {
+    fetch(getBackendUrl() + '/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -23,7 +27,7 @@ function login() {
     const username = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
 
-    fetch('YOUR_BACKEND_URL/login', {
+    fetch(getBackendUrl() + '/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -46,7 +50,7 @@ function uploadFile() {
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
 
-    fetch('YOUR_BACKEND_URL/upload', {
+    fetch(getBackendUrl() + '/upload', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + accessToken,
@@ -59,7 +63,7 @@ function uploadFile() {
 }
 
 function listFiles() {
-    fetch('YOUR_BACKEND_URL/list', {
+    fetch(getBackendUrl() + '/list', {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + accessToken,
