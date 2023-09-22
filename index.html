@@ -7,41 +7,48 @@
 </head>
 <body>
     <h2>File Server Client</h2>
-    
+   
     <!-- Backend URL Input -->
-    <div>
+    <div id="backendInputDiv">
         <h3>Backend URL</h3>
         <input type="text" id="backendUrl" placeholder="Enter backend URL">
+        <button onclick="submitBackendUrl()">Submit</button>
     </div>
+
+    <div id="backendMessage"></div>
+
+    <!-- Signup and Login UI (Initially hidden) -->
+    <div id="authUI" style="display: none;">
+        
+        <!-- Signup Section -->
+        <div>
+            <h3>Signup</h3>
+            <input type="text" id="signupUsername" placeholder="Username">
+            <input type="password" id="signupPassword" placeholder="Password">
+            <button onclick="signup()">Signup</button>
+        </div>
     
-    <!-- Signup Section -->
-    <div>
-        <h3>Signup</h3>
-        <input type="text" id="signupUsername" placeholder="Username">
-        <input type="password" id="signupPassword" placeholder="Password">
-        <button onclick="signup()">Signup</button>
-    </div>
-
-    <!-- Login Section -->
-    <div>
-        <h3>Login</h3>
-        <input type="text" id="loginUsername" placeholder="Username">
-        <input type="password" id="loginPassword" placeholder="Password">
-        <button onclick="login()">Login</button>
-    </div>
-
-    <!-- Upload Section -->
-    <div>
-        <h3>Upload File</h3>
-        <input type="file" id="fileInput">
-        <button onclick="uploadFile()">Upload</button>
-    </div>
-
-    <!-- List Files Section -->
-    <div>
-        <h3>List Files</h3>
-        <button onclick="listFiles()">List Files</button>
-        <ul id="fileList"></ul>
+        <!-- Login Section -->
+        <div>
+            <h3>Login</h3>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+    
+        <!-- Upload Section -->
+        <div>
+            <h3>Upload File</h3>
+            <input type="file" id="fileInput">
+            <button onclick="uploadFile()">Upload</button>
+        </div>
+    
+        <!-- List Files Section -->
+        <div>
+            <h3>List Files</h3>
+            <button onclick="listFiles()">List Files</button>
+            <ul id="fileList"></ul>
+        </div>
     </div>
 
     <!-- Include the JS file -->
