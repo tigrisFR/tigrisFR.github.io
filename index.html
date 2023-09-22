@@ -1,19 +1,44 @@
-<a style="font-size:5vw"  href="https://onboarding/web_modal/next_link">success https://onboarding/</a></br>
-<a style="font-size:5vw"  href="https://onboarding/web_modal/fail_link">failure https://onboarding/</a></br>
-</br>
-<a style="font-size:5vw"  href="twitter://onboarding/web_modal/next_link">success twitter://onboarding</a></br>
-<a style="font-size:5vw"  href="twitter://onboarding/web_modal/fail_link">failure twitter://onboarding</a></br>
-</br>
-mobile.twitter.com</br>
-<a style="font-size:5vw"  href="https://mobile.twitter.com/i/flow/web_modal/next_link">success https://mobile.twitter.com/i/flow/</a></br>
-<a style="font-size:5vw"  href="https://mobile.twitter.com/i/flow/web_modal/fail_link">failure https://mobile.twitter.com/i/flow/</a></br>
-</br>
-<a style="font-size:5vw"  href="https://mobile.twitter.com/onboarding/web_modal/next_link">success https://mobile.twitter.com/</a></br>
-<a style="font-size:5vw"  href="https://mobile.twitter.com/onboarding/web_modal/fail_link">failure https://mobile.twitter.com/</a></br>
-</br>
-twitter.com</br>
-<a style="font-size:5vw"  href="https://twitter.com/i/flow/web_modal/next_link">success https://twitter.com/i/flow/</a></br>
-<a style="font-size:5vw"  href="https://twitter.com/i/flow/web_modal/fail_link">failure https://twitter.com/i/flow/</a></br>
-</br>
-<a style="font-size:5vw"  href="https://twitter.com/onboarding/web_modal/next_link">success https://twitter.com/</a></br>
-<a style="font-size:5vw"  href="https://twitter.com/onboarding/web_modal/fail_link">failure https://twitter.com/</a></br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Server Client</title>
+</head>
+<body>
+    <h2>File Server Client</h2>
+
+    <!-- Signup Section -->
+    <div>
+        <h3>Signup</h3>
+        <input type="text" id="signupUsername" placeholder="Username">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <button onclick="signup()">Signup</button>
+    </div>
+
+    <!-- Login Section -->
+    <div>
+        <h3>Login</h3>
+        <input type="text" id="loginUsername" placeholder="Username">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <!-- Upload Section -->
+    <div>
+        <h3>Upload File</h3>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload</button>
+    </div>
+
+    <!-- List Files Section -->
+    <div>
+        <h3>List Files</h3>
+        <button onclick="listFiles()">List Files</button>
+        <ul id="fileList"></ul>
+    </div>
+
+    <!-- Include the JS file -->
+    <script src="script.js"></script>
+</body>
+</html>
