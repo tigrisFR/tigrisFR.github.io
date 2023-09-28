@@ -5,21 +5,18 @@ function getBackendUrl() {
 }
 
 function handleResponse(response) {
-    const contentType = response.headers.get('content-type');
-
-    if (contentType && contentType.includes('application/json')) {
-        return response.json().then(data => {
-            if (!response.ok) {
-                throw new Error(data.error || 'Something went wrong.');
-            }
-            return data;
-        });
-    } else {
-        if (!response.ok) {
-            throw new Error('Something went wrong.');
-        }
-        return response.text();
+    if (!response.ok) {
+        // Handle non-OK responses by attempting to parse as JSON, but default to response.statusText if that fails.
+        return response.json()
+            .catch(() => Promise.reject(new Error(response.statusText)))
+            .then(data => Promise.reject(new Error(data.error)));
     }
+
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+        return response.json();
+    }
+    return response.text();
 }
 
 function submitBackendUrl() {
