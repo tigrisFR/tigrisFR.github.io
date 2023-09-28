@@ -10,7 +10,11 @@ function handleResponse(response) {
             throw new Error(data.error || 'Something went wrong.');
         });
     }
-    return response.json();
+    if (response.headers.get('content-type').includes('application/json')) {
+        return response.json();
+    } else {
+        return response.text();
+    }
 }
 
 function submitBackendUrl() {
