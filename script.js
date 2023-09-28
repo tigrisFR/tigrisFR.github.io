@@ -5,14 +5,19 @@ function getBackendUrl() {
 }
 
 function handleResponse(response) {
-    if (!response.ok) {
+    const contentType = response.headers.get('content-type');
+
+    if (contentType && contentType.includes('application/json')) {
         return response.json().then(data => {
-            throw new Error(data.error || 'Something went wrong.');
+            if (!response.ok) {
+                throw new Error(data.error || 'Something went wrong.');
+            }
+            return data;
         });
-    }
-    if (response.headers.get('content-type').includes('application/json')) {
-        return response.json();
     } else {
+        if (!response.ok) {
+            throw new Error('Something went wrong.');
+        }
         return response.text();
     }
 }
