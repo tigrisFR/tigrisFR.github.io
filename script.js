@@ -4,21 +4,25 @@ function getBackendUrl() {
     return document.getElementById('backendUrl').value;
 }
 
+function handleResponse(response) {
+    if (!response.ok) {
+        return response.json().then(data => {
+            throw new Error(data.error || 'Something went wrong.');
+        });
+    }
+    return response.json();
+}
+
 function submitBackendUrl() {
     fetch(getBackendUrl() + '/')
-        .then(response => response.text())
+        .then(handleResponse)
         .then(data => {
-            // Display the backend message
             document.getElementById('backendMessage').textContent = data;
-
-            // Hide the backend URL input
             document.getElementById('backendInputDiv').style.display = 'none';
-
-            // Show the signup/login UI
             document.getElementById('authUI').style.display = 'block';
         })
         .catch(error => {
-            alert('Error fetching backend message:', error);
+            alert('Error fetching backend message:' + error.message);
         });
 }
 
@@ -36,9 +40,9 @@ function signup() {
             password: password,
         }),
     })
-    .then(response => response.json())
+    .then(handleResponse)
     .then(data => alert(data.message))
-    .catch(error => alert('Error:', error));
+    .catch(error => alert('Error: ' + error.message));
 }
 
 function login() {
@@ -55,12 +59,12 @@ function login() {
             password: password,
         }),
     })
-    .then(response => response.json())
+    .then(handleResponse)
     .then(data => {
         accessToken = data.access_token;
         alert('Logged in successfully');
     })
-    .catch(error => alert('Error:', error));
+    .catch(error => alert('Error: ' + error.message));
 }
 
 function uploadFile() {
@@ -75,9 +79,9 @@ function uploadFile() {
         },
         body: formData,
     })
-    .then(response => response.json())
+    .then(handleResponse)
     .then(data => alert(data.message))
-    .catch(error => alert('Error:', error));
+    .catch(error => alert('Error: ' + error.message));
 }
 
 function listFiles() {
@@ -87,15 +91,15 @@ function listFiles() {
             'Authorization': 'Bearer ' + accessToken,
         },
     })
-    .then(response => response.json())
+    .then(handleResponse)
     .then(data => {
         const fileList = document.getElementById('fileList');
-        fileList.innerHTML = ''; // Clear previous list
+        fileList.innerHTML = '';
         data.forEach(file => {
             const li = document.createElement('li');
             li.textContent = file.name;
             fileList.appendChild(li);
         });
     })
-    .catch(error => alert('Error:', error));
+    .catch(error => alert('Error: ' + error.message));
 }
