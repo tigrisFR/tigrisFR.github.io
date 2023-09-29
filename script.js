@@ -20,16 +20,22 @@ function handleResponse(response) {
 }
 
 function submitBackendUrl() {
-    fetch(getBackendUrl() + '/')
-        .then(handleResponse)
-        .then(data => {
-            document.getElementById('backendMessage').textContent = data;
-            document.getElementById('backendInputDiv').style.display = 'none';
-            document.getElementById('authUI').style.display = 'block';
-        })
-        .catch(error => {
-            alert('Error fetching backend message:' + error.message);
-        });
+    fetch(getBackendUrl() + '/', {
+        
+        method: 'GET',
+        headers: {
+            'ngrok-skip-browser-warning': 'true',
+        }
+    })
+    .then(handleResponse)
+    .then(data => {
+        document.getElementById('backendMessage').textContent = data;
+        document.getElementById('backendInputDiv').style.display = 'none';
+        document.getElementById('authUI').style.display = 'block';
+    })
+    .catch(error => {
+        alert('Error fetching backend message:' + error.message);
+    });
 }
 
 function signup() {
@@ -39,6 +45,7 @@ function signup() {
     fetch(getBackendUrl() + '/signup', {
         method: 'POST',
         headers: {
+            'ngrok-skip-browser-warning': 'true',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -58,6 +65,7 @@ function login() {
     fetch(getBackendUrl() + '/login', {
         method: 'POST',
         headers: {
+            'ngrok-skip-browser-warning': 'true',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -81,6 +89,7 @@ function uploadFile() {
     fetch(getBackendUrl() + '/upload', {
         method: 'POST',
         headers: {
+            'ngrok-skip-browser-warning': 'true',
             'Authorization': 'Bearer ' + accessToken,
         },
         body: formData,
@@ -94,6 +103,7 @@ function listFiles() {
     fetch(getBackendUrl() + '/list', {
         method: 'GET',
         headers: {
+            'ngrok-skip-browser-warning': 'true',
             'Authorization': 'Bearer ' + accessToken,
         },
     })
