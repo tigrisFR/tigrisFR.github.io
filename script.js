@@ -136,7 +136,7 @@ function displayFiles(files) {
 }
 
 function downloadFile(fileId, fileName) {
-    fetch(getBackendUrl() + `/download/${fileId}`, {
+    fetch(getBackendUrl() + '/download/' + fileId, {
         method: 'GET',
         headers: {
             'ngrok-skip-browser-warning': 'true',
