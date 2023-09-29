@@ -111,13 +111,48 @@ function listFiles() {
     })
     .then(handleResponse)
     .then(data => {
-        const fileList = document.getElementById('fileList');
-        fileList.innerHTML = '';
-        data.forEach(file => {
-            const li = document.createElement('li');
-            li.textContent = file.name;
-            fileList.appendChild(li);
-        });
+        displayFiles(data)
     })
     .catch(error => alert('Error: ' + error.message));
+}
+
+function displayFiles(files) {
+    const fileList = document.getElementById('fileList');
+    fileList.innerHTML = '';
+    files.forEach(file => {
+        const fileItem = document.createElement('li');
+        
+        const fileName = document.createElement('span');
+        fileName.textContent = file.name;
+        
+        const downloadLink = document.createElement('button');
+        downloadLink.textContent = 'Download';
+        downloadLink.onclick = function() { downloadFile(file.id, file.name); }; 
+
+        fileItem.appendChild(fileName);
+        fileItem.appendChild(downloadLink);
+        fileList.appendChild(fileItem);
+    });
+}
+
+function downloadFile(fileId, fileName) {
+    fetch(getBackendUrl() + '/download/${fileId}`, {
+        method: 'GET',
+        headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Authorization': 'Bearer ' + accessToken,
+        }
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        const blobUrl = URL.createObjectURL(blob);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = blobUrl;
+        downloadLink.download = fileName;  // This sets the filename for the downloaded file
+        document.body.appendChild(downloadLink); // Required for Firefox
+        downloadLink.click();
+        document.body.removeChild(downloadLink); // Cleanup
+        URL.revokeObjectURL(blobUrl);  // Free up memory
+    })
+    .catch(error => console.error('Download failed:', error));
 }
