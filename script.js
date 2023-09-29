@@ -41,6 +41,7 @@ function submitBackendUrl() {
 function signup() {
     const username = document.getElementById('signupUsername').value;
     const password = document.getElementById('signupPassword').value;
+    const inviteCode = document.getElementById("inviteCode").value;
 
     fetch(getBackendUrl() + '/signup', {
         method: 'POST',
@@ -51,6 +52,7 @@ function signup() {
         body: JSON.stringify({
             username: username,
             password: password,
+            invite_code: inviteCode,
         }),
     })
     .then(handleResponse)
