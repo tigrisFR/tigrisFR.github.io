@@ -123,11 +123,13 @@ function displayFiles(files) {
         const fileItem = document.createElement('li');
         
         const fileName = document.createElement('span');
-        fileName.textContent = file.name;
+        fileName.textContent = file.original_name;  // use original_name here
         
         const downloadLink = document.createElement('button');
         downloadLink.textContent = 'Download';
-        downloadLink.onclick = function() { downloadFile(file.id, file.name); }; 
+        downloadLink.onclick = function() { 
+            downloadFile(file.id, file.original_name);  // use original_name for download
+        }; 
 
         fileItem.appendChild(fileName);
         fileItem.appendChild(downloadLink);
@@ -135,7 +137,7 @@ function displayFiles(files) {
     });
 }
 
-function downloadFile(fileId, fileName) {
+function downloadFile(fileId, originalFileName) {
     fetch(getBackendUrl() + '/download/' + fileId, {
         method: 'GET',
         headers: {
@@ -148,11 +150,11 @@ function downloadFile(fileId, fileName) {
         const blobUrl = URL.createObjectURL(blob);
         const downloadLink = document.createElement('a');
         downloadLink.href = blobUrl;
-        downloadLink.download = fileName;  // This sets the filename for the downloaded file
-        document.body.appendChild(downloadLink); // Required for Firefox
+        downloadLink.download = originalFileName;  // use original_name for the downloaded file
+        document.body.appendChild(downloadLink); 
         downloadLink.click();
-        document.body.removeChild(downloadLink); // Cleanup
-        URL.revokeObjectURL(blobUrl);  // Free up memory
+        document.body.removeChild(downloadLink);
+        URL.revokeObjectURL(blobUrl);
     })
     .catch(error => console.error('Download failed:', error));
 }
