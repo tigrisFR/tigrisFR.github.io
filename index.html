@@ -41,7 +41,9 @@
         <div>
             <h3>Upload File</h3>
             <input type="file" id="fileInput">
-            <button onclick="uploadFile()">Upload</button>
+            <button id="uploadButton" onclick="uploadFile()">Upload</button>
+            <button id="chunkedUploadButton">Chunked Upload</button>
+            <div id="uploadProgress"></div>
         </div>
     
         <!-- List Files Section -->
